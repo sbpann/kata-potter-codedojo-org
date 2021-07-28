@@ -19,7 +19,7 @@ public class Cart extends AbstractPersistable<UUID> {
     @OneToMany
     private List<CartItem> items;
 
-    public UUID getId() {
+    public UUID getID() {
         return id;
     }
 

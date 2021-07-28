@@ -24,7 +24,7 @@ public class Order extends AbstractPersistable<UUID> {
     @NotNull
     private Boolean checkedOut;
 
-    public UUID getId() {
+    public UUID getID() {
         return this.id;
     }
 
@@ -66,7 +66,7 @@ public class Order extends AbstractPersistable<UUID> {
         JSONObject jsonObject = new JSONObject();
         return jsonObject.put("id", id)
                 .put("user", user.getName())
-                .put("cart", cart.getId())
+                .put("cart", cart.getID())
                 .put("items", cart.getItems().stream().map(cartItem -> {
                     JSONObject item = new JSONObject();
                     item.put("id", cartItem.getID().toString())

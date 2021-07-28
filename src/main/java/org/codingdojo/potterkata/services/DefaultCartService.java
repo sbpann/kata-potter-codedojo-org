@@ -50,10 +50,10 @@ public class DefaultCartService implements CartService{
     }
 
     public Cart addItem(Item item, Cart cart) {
-        Optional<CartItem> addedCartItem = cart.getItems().stream().filter(cartItem -> cartItem.getSKU().equals(item.getId())).findFirst();
+        Optional<CartItem> addedCartItem = cart.getItems().stream().filter(cartItem -> cartItem.getSKU().equals(item.getID())).findFirst();
         if (addedCartItem.isEmpty()) {
             CartItem cartItem = new CartItem();
-            cartItem.setSKU(item.getId());
+            cartItem.setSKU(item.getID());
             cartItem.setName(item.getName());
             cartItem.srtPricePerUnit(item.getPrice());
             cartItem.setNumber(1);
@@ -65,12 +65,12 @@ public class DefaultCartService implements CartService{
         CartItem cartItem = addedCartItem.get();
         cartItem.setNumber(cartItem.getNumber() + 1);
         this.itemRepository.save(cartItem);
-        return this.find(cart.getId());
+        return this.find(cart.getID());
     }
 
 
     public Cart removeItem(Item item, Cart cart) {
-        Optional<CartItem> addedCartItem = cart.getItems().stream().filter(cartItem -> cartItem.getSKU().equals(item.getId())).findFirst();
+        Optional<CartItem> addedCartItem = cart.getItems().stream().filter(cartItem -> cartItem.getSKU().equals(item.getID())).findFirst();
         if (addedCartItem.isEmpty()) {
             return cart;
         }
@@ -84,6 +84,6 @@ public class DefaultCartService implements CartService{
         CartItem cartItem = addedCartItem.get();
         cartItem.setNumber(cartItem.getNumber() - 1);
         this.itemRepository.delete(cartItem);
-        return this.find(cart.getId());
+        return this.find(cart.getID());
     }
 }

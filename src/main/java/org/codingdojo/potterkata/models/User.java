@@ -16,7 +16,7 @@ public class User extends AbstractPersistable<UUID> {
     @NotNull
     private String name;
 
-    public UUID getId() {
+    public UUID getID() {
         return this.id;
     }
 

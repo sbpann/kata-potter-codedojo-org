@@ -15,7 +15,7 @@ public class Book extends AbstractPersistable<UUID> implements Item {
     private String name;
     private Double price;
 
-    public UUID getId() {
+    public UUID getID() {
         return this.id;
     }
 

@@ -35,12 +35,12 @@ public class DefaultOrderService implements OrderService {
     }
 
     public Order create(@NotNull User user, @NotNull Cart cart) throws Exception{
-        User targetUser = this.userService.find(user.getId());
+        User targetUser = this.userService.find(user.getID());
         if (targetUser == null) {
             throw new Exception();
         }
 
-        Cart targetCart = this.cartService.find(cart.getId());
+        Cart targetCart = this.cartService.find(cart.getID());
         if (targetCart == null) {
             throw new Exception();
         }
@@ -53,7 +53,7 @@ public class DefaultOrderService implements OrderService {
     }
 
     public Order checkout(@NotNull Order order, Function<Cart, Double> discountFunction) throws Exception{
-        if (this.find(order.getId()) == null) {
+        if (this.find(order.getID()) == null) {
             throw new  Exception();
         }
         Cart cart = order.getCart();

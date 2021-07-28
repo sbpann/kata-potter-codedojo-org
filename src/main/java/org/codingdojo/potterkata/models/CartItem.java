@@ -15,7 +15,7 @@ public class CartItem extends AbstractPersistable<UUID> {
     @GeneratedValue
     private UUID id;
     @NotNull
-    private UUID SKU;
+    private UUID sku;
     @NotNull
     private String name;
     @NotNull
@@ -28,11 +28,11 @@ public class CartItem extends AbstractPersistable<UUID> {
     }
 
     public UUID getSKU() {
-        return this.SKU;
+        return this.sku;
     }
 
     public void setSKU(UUID id) {
-        this.SKU = id;
+        this.sku = id;
     }
 
     public String getName() {
