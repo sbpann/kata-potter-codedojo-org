@@ -11,9 +11,6 @@ import java.util.UUID;
 @Entity
 @Table(name="\"order\"")
 public class Order extends AbstractPersistable<UUID> {
-
-
-
     @Id
     @GeneratedValue
     private UUID id;
@@ -68,8 +65,16 @@ public class Order extends AbstractPersistable<UUID> {
     public JSONObject toJSON() {
         JSONObject jsonObject = new JSONObject();
         return jsonObject.put("id", id)
-                .put("cart", cart.getId())
                 .put("user", user.getName())
+                .put("cart", cart.getId())
+                .put("items", cart.getItems().stream().map(cartItem -> {
+                    JSONObject item = new JSONObject();
+                    item.put("id", cartItem.getID().toString())
+                        .put("name", cartItem.getNumber())
+                        .put("number", cartItem.getNumber())
+                        .put("pricePerUnit", cartItem.getPricePerUnit());
+                    return item.toString();
+                }))
                 .put("totalPrice", totalPrice)
                 .put("discount", discount)
                 .put("netPrice",netPrice)

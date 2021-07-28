@@ -54,6 +54,7 @@ public class DefaultCartService implements CartService{
         if (addedCartItem.isEmpty()) {
             CartItem cartItem = new CartItem();
             cartItem.setSKU(item.getId());
+            cartItem.setName(item.getName());
             cartItem.srtPricePerUnit(item.getPrice());
             cartItem.setNumber(1);
             this.itemRepository.save(cartItem);

@@ -17,6 +17,8 @@ public class CartItem extends AbstractPersistable<UUID> {
     @NotNull
     private UUID SKU;
     @NotNull
+    private String name;
+    @NotNull
     private Integer number;
     @NotNull
     private Double pricePerUnit;
@@ -31,6 +33,14 @@ public class CartItem extends AbstractPersistable<UUID> {
 
     public void setSKU(UUID id) {
         this.SKU = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getNumber() {
