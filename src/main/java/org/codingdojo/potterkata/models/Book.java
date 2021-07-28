@@ -1,20 +1,22 @@
 package org.codingdojo.potterkata.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
 import java.util.UUID;
 
-public class Book implements Item {
-    public String id;
-    public String name;
-    public Double price;
+@Entity
+public class Book extends AbstractPersistable<UUID> implements Item {
+    @Id
+    @GeneratedValue
+    private UUID id;
+    private String name;
+    private Double price;
 
-    public Book(String id, String name, Double price) {
-        this.id = UUID.randomUUID().toString();
-        this.name = name;
-        this.price = price;
-    }
-
-
-    public String getId() {
+    public UUID getId() {
         return this.id;
     }
 
@@ -22,7 +24,16 @@ public class Book implements Item {
         return this.name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Double getPrice() {
         return this.price;
     }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
 }

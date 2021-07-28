@@ -1,8 +1,10 @@
 package org.codingdojo.potterkata.services;
 
 import org.codingdojo.potterkata.models.User;
-import org.codingdojo.potterkata.repositories.UserRepository;
+
+import java.util.UUID;
 
 public interface UserService {
-    User findByID(String id);
+    User find(UUID id);
+    User create(String name) throws Exception;
 }

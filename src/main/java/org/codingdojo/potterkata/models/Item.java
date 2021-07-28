@@ -1,6 +1,8 @@
 package org.codingdojo.potterkata.models;
 
+import java.util.UUID;
+
 public interface Item {
-    public String getId();
-    public Double getPrice();
+    UUID getId();
+    Double getPrice();
 }

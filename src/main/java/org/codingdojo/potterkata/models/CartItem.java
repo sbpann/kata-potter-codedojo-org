@@ -1,18 +1,36 @@
 package org.codingdojo.potterkata.models;
 
-public class CartItem {
-    public String SKU;
-    public Integer number;
-    public Double pricePerUnit;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
-    public CartItem(String SKU, Double pricePerUnit) {
-        this.SKU = SKU;
-        this.number = 1;
-        this.pricePerUnit = pricePerUnit;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import java.util.UUID;
+
+@Entity
+public class CartItem extends AbstractPersistable<UUID> {
+
+    @Id
+    @GeneratedValue
+    private UUID id;
+    @NotNull
+    private UUID SKU;
+    @NotNull
+    private Integer number;
+    @NotNull
+    private Double pricePerUnit;
+
+    public UUID getID() {
+        return this.id;
     }
 
-    public String getSKU() {
+    public UUID getSKU() {
         return this.SKU;
+    }
+
+    public void setSKU(UUID id) {
+        this.SKU = id;
     }
 
     public Integer getNumber() {
@@ -24,6 +42,10 @@ public class CartItem {
     }
 
     public Double getPricePerUnit() {
-        return pricePerUnit;
+        return this.pricePerUnit;
+    }
+
+    public void srtPricePerUnit(Double pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
     }
 }

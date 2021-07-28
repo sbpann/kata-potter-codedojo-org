@@ -4,15 +4,15 @@ import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
-public class Orders extends AbstractPersistable<UUID> {
+@Table(name="\"order\"")
+public class Order extends AbstractPersistable<UUID> {
+
+
 
     @Id
     @GeneratedValue
@@ -27,6 +27,9 @@ public class Orders extends AbstractPersistable<UUID> {
     @NotNull
     private Boolean checkedOut;
 
+    public UUID getId() {
+        return this.id;
+    }
 
     public Cart getCart() {
         return this.cart;

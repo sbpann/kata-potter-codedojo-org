@@ -1,24 +1,42 @@
 package org.codingdojo.potterkata.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.*;
 
-public class Cart {
-    public String id;
-    public String userID;
-    public ArrayList<CartItem> items;
+@Entity
+public class Cart extends AbstractPersistable<UUID> {
+    @Id
+    @GeneratedValue
+    private UUID id;
+    @OneToOne
+    private User user;
+    @OneToMany
+    private List<CartItem> items;
 
-    public Cart(String userID) {
-        this.id = UUID.randomUUID().toString();
-        this.userID = userID;
-        this.items = new ArrayList<>();
+    public UUID getId() {
+        return id;
     }
 
-    public String getId() {
-        return this.id;
+    public User getUser() {
+        return this.user;
     }
 
-    public ArrayList<CartItem> getItems() {
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<CartItem> getItems() {
         return this.items;
+    }
+
+    public void setItems(List<CartItem> items) {
+        this.items = items;
     }
 
     public Double getTotalPrice() {
@@ -27,35 +45,5 @@ public class Cart {
             total = total + (cartItem.getNumber() * cartItem.getPricePerUnit());
         }
         return total;
-    }
-
-    public void addItem(Item item) {
-        Optional<CartItem> addedCartItem = this.getItems().stream().filter(cartItem -> cartItem.getSKU().equals(item.getId())).findFirst();
-        if (addedCartItem.isEmpty()) {
-            this.getItems().add(new CartItem(item.getId(), item.getPrice()));
-            return;
-        }
-
-        CartItem oldCartItem = addedCartItem.get();
-        CartItem newCartItem = addedCartItem.get();
-        oldCartItem.setNumber(oldCartItem.getNumber() + 1);
-        this.getItems().set(this.getItems().indexOf(oldCartItem), newCartItem);
-    }
-
-    public void removeItem(Item item) {
-        Optional<CartItem> addedCartItem = this.getItems().stream().filter(cartItem -> cartItem.getSKU().equals(item.getId())).findFirst();
-        if (addedCartItem.isEmpty()) {
-            return;
-        }
-
-        if (addedCartItem.get().getNumber().equals(1)) {
-            this.getItems().remove(addedCartItem.get()); // guarantee unique
-            return;
-        }
-
-        CartItem oldCartItem = addedCartItem.get();
-        CartItem newCartItem = addedCartItem.get();
-        oldCartItem.setNumber(oldCartItem.getNumber() - 1);
-        this.getItems().set(this.getItems().indexOf(oldCartItem), newCartItem);
     }
 }
