@@ -1,7 +1,7 @@
 package org.codingdojo.potterkata.contollers;
 
 import org.codingdojo.potterkata.constants.DiscountFunctionConstant;
-import org.codingdojo.potterkata.constants.OperationConstants;
+import org.codingdojo.potterkata.constants.OperationConstant;
 import org.codingdojo.potterkata.models.*;
 import org.codingdojo.potterkata.requests.CartUpdateRequest;
 import org.codingdojo.potterkata.requests.CartCreateRequest;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.*;
-import java.util.function.Function;
 
 @RestController
 public class CartController {
@@ -48,7 +47,7 @@ public class CartController {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
 
-        if (!OperationConstants.getAllowedCartUpdateOperation().contains(request.operation())) {
+        if (!OperationConstant.getAllowedCartUpdateOperation().contains(request.operation())) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
         }
 
@@ -57,11 +56,11 @@ public class CartController {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
         }
 
-        if (request.operation().equals(OperationConstants.getCartAddItemOperation())) {
+        if (request.operation().equals(OperationConstant.getCartAddItemOperation())) {
             return this.cartService.addItem(book, cart);
         }
 
-        if (request.operation().equals(OperationConstants.getCartRemoveItemOperation())) {
+        if (request.operation().equals(OperationConstant.getCartRemoveItemOperation())) {
             return this.cartService.removeItem(book, cart);
         }
 

@@ -3,7 +3,7 @@ package org.codingdojo.potterkata.constants;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class OperationConstants {
+public class OperationConstant {
     private static final String cartAddItemOperation = "ADD_ITEM";
     private static final String cartRemoveItemOperation = "REMOVE_ITEM";
     private static final ArrayList<String> allowedCartUpdateOperation = new ArrayList<>(Arrays.asList(cartAddItemOperation, cartRemoveItemOperation));
