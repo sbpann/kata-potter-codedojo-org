@@ -35,6 +35,9 @@ public class DefaultOrderService implements OrderService {
     }
 
     public Order create(@NotNull User user, @NotNull Cart cart) throws Exception{
+        if (user == null) {
+            return this.repository.findByCart(cart);
+        }
         User targetUser = this.userService.find(user.getID());
         if (targetUser == null) {
             throw new Exception();
@@ -65,6 +68,8 @@ public class DefaultOrderService implements OrderService {
         }
         order.setNetPrice();
         order.setCheckedOut(true);
+        this.cartService.detachUser(cart);
+        order.setCart(cart);
         return this.repository.save(order);
     }
 }

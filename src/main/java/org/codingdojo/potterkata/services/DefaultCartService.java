@@ -86,4 +86,9 @@ public class DefaultCartService implements CartService{
         this.itemRepository.delete(cartItem);
         return this.find(cart.getID());
     }
+
+    public void detachUser(Cart cart) {
+        cart.setUser(null);
+        this.repository.save(cart);
+    }
 }

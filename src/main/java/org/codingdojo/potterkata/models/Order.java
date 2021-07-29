@@ -73,11 +73,11 @@ public class Order extends AbstractPersistable<UUID> {
                 .put("items", cart.getItems().stream().map(cartItem -> {
                     JSONObject item = new JSONObject();
                     item.put("id", cartItem.getID().toString())
-                        .put("name", cartItem.getNumber())
+                        .put("name", cartItem.getName())
                         .put("number", cartItem.getNumber())
                         .put("pricePerUnit", cartItem.getPricePerUnit());
-                    return item.toString();
-                }))
+                    return item;
+                }).toArray())
                 .put("totalPrice", totalPrice)
                 .put("discount", discount)
                 .put("netPrice",netPrice)
