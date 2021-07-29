@@ -1,16 +1,18 @@
-package org.codingdojo.potterkata.services;
+package org.codingdojo.potterkata;
 
 import org.codingdojo.potterkata.constants.DiscountFunctionConstant;
 import org.codingdojo.potterkata.models.Cart;
 import org.codingdojo.potterkata.models.CartItem;
 import org.codingdojo.potterkata.models.Order;
 import org.codingdojo.potterkata.models.User;
+import org.codingdojo.potterkata.services.MockOrderService;
 import org.junit.jupiter.api.Test;
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class OrderServiceTest {
+class DiscountFunctionTest {
 
     List<CartItem> bookGenerator(
             Integer book1,
@@ -66,7 +68,7 @@ class OrderServiceTest {
         }
         return items;
     }
-    void checkout(List<CartItem> items, Double expectedPrice) {
+    void checkout(List<CartItem> items, Double expectedPrice) throws Exception {
         Cart cart = new Cart();
         User user = new User();
         user.setName("John");
@@ -84,7 +86,56 @@ class OrderServiceTest {
     }
 
     @Test
-    void checkoutCase1() {
-        checkout(bookGenerator(2,2,2,1,1),51.20);
+    void checkoutTestExample(){
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(2,2,2,1,1),51.20));
+    }
+
+    @Test
+    void checkoutTestBasics(){
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(0,0,0,0,0),0.));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(0,1,0,0,0),8.));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(0,0,1,0,0),8.));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(0,0,0,1,0),8.));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(0,0,0,0,1),8.));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(0,3,0,0,0),8.*3));
+    }
+
+    @Test
+    void checkoutTestSimpleDiscounts(){
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(1,1,0,0,0),8*2*0.95));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(1,0,1,0,1),8*3*0.9));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(1,1,1,0,1),8*4*0.8));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(1,1,1,1,1),8*5*0.75));
+    }
+
+    @Test
+    void checkoutTestSeveralDiscounts(){
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(2,1,0,0,0),8 + (8 * 2 * 0.95)));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(2,2,0,0,0),2 * (8 * 2 * 0.95)));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(2,1,2,1,0),(8 * 4 * 0.8) + (8 * 2 * 0.95)));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(1,2,1,1,1),8 + (8 * 5 * 0.75)));
+    }
+
+    @Test
+    void checkoutTestEdgeCases(){
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(2,2,2,1,1),2 * (8 * 4 * 0.8)));
+        assertDoesNotThrow(
+                () -> checkout(bookGenerator(5,5,4,5,4),3 * (8 * 5 * 0.75) + 2 * (8 * 4 * 0.8)));
     }
 }

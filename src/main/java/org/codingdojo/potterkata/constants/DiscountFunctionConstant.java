@@ -53,6 +53,9 @@ public class DiscountFunctionConstant {
                     calculator.set(j, calculator.get(j) + 1);
                     Double discounted = 0.;
                     for (Integer valueAt: calculator) {
+                        if (valueAt < 2) {
+                            continue;
+                        }
                         Integer discountPercent;
                         if (valueAt > 5) {
                             discountPercent = discountTable.get(5);
@@ -72,7 +75,7 @@ public class DiscountFunctionConstant {
 
         Double discount = 0.;
         for (Integer group : baskets) {
-            if (group.equals(1)) {
+            if (group < 2) {
                 continue;
             }
             Integer discountPercent;

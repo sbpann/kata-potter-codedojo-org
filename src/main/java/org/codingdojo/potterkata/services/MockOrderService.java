@@ -20,7 +20,10 @@ public class MockOrderService implements OrderService{
         return order;
     }
 
-    public Order checkout(Order order, Function<Cart, Double> discountFunction) {
+    public Order checkout(Order order, Function<Cart, Double> discountFunction) throws Exception {
+        if (this.find(order.getID()) == null) {
+            throw new  Exception();
+        }
         Cart cart = order.getCart();
         order.setTotalPrice(cart.getTotalPrice());
         if (discountFunction != null) {
