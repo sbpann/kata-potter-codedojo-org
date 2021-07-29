@@ -1,10 +1,8 @@
 package org.codingdojo.potterkata.contollers;
 
+import org.codingdojo.potterkata.constants.DiscountFunctionConstant;
 import org.codingdojo.potterkata.constants.OperationConstants;
-import org.codingdojo.potterkata.models.Book;
-import org.codingdojo.potterkata.models.Cart;
-import org.codingdojo.potterkata.models.Order;
-import org.codingdojo.potterkata.models.User;
+import org.codingdojo.potterkata.models.*;
 import org.codingdojo.potterkata.requests.CartUpdateRequest;
 import org.codingdojo.potterkata.requests.CartCreateRequest;
 import org.codingdojo.potterkata.services.*;
@@ -12,7 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.UUID;
+import java.util.*;
+import java.util.function.Function;
 
 @RestController
 public class CartController {
@@ -82,10 +81,8 @@ public class CartController {
             exception.printStackTrace();
             throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
         try {
-            //TODO: Add discount function from https://codingdojo.org/kata/Potter
-            return orderService.checkout(order, null);
+            return orderService.checkout(order, DiscountFunctionConstant.potterKataDiscountFunction);
         } catch (Exception exception) {
             exception.printStackTrace();
             throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);

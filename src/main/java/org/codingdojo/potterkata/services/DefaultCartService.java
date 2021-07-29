@@ -55,7 +55,7 @@ public class DefaultCartService implements CartService{
             CartItem cartItem = new CartItem();
             cartItem.setSKU(item.getID());
             cartItem.setName(item.getName());
-            cartItem.srtPricePerUnit(item.getPrice());
+            cartItem.setPricePerUnit(item.getPrice());
             cartItem.setNumber(1);
             this.itemRepository.save(cartItem);
             cart.getItems().add(cartItem);

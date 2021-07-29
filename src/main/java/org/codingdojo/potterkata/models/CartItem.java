@@ -55,7 +55,7 @@ public class CartItem extends AbstractPersistable<UUID> {
         return this.pricePerUnit;
     }
 
-    public void srtPricePerUnit(Double pricePerUnit) {
+    public void setPricePerUnit(Double pricePerUnit) {
         this.pricePerUnit = pricePerUnit;
     }
 }

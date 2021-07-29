@@ -58,6 +58,9 @@ public class Order extends AbstractPersistable<UUID> {
     public void setNetPrice() {
         this.netPrice = this.getTotalPrice() - this.getDiscount();
     }
+    public Double getNetPrice() {
+        return this.netPrice;
+    }
     public void setCheckedOut(Boolean checkedOut) {
         this.checkedOut = checkedOut;
     }
